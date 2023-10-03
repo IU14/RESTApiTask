@@ -35,8 +35,8 @@ app.get('/attendees/', (req, res) => {
 
 app.delete('/attendee/:id', (req, res) => {
   const id = parseFloat(req.params.id)
-  ATTENDEES = [...ATTENDEES.filter((attendee)=>attendee.id != id)]
-  res.status(204).json({})
+  ATTENDEES = ATTENDEES.filter((attendee)=>attendee.id != id)
+  res.status(204).json()
   // TODO: implement 404?
 })
 

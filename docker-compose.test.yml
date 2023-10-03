@@ -9,11 +9,11 @@ services:
     volumes:
       - ${PWD}/test_server/reports:/pytest/reports:rw
     links:
-        - server
+      - server
 
 
   test_client:
-    image: cypress/included:10.3.0
+    image: cypress/included:latest
     working_dir: /tests
     volumes:
       # USER passthrough
@@ -28,6 +28,6 @@ services:
     command: ["run"]
 
     links:
-        - server
+      - server
     environment:
       - CYPRESS_BASE_URL=http://server:8000/
