@@ -7,8 +7,13 @@
 	<style>
 		
 	</style>
-	<script src="https://unpkg.com/vue@next"></script> <!-- https://v3.vuejs.org/guide/installation.html#cdn -->
-	<!-- <script src="vue.js"></script> -->
+	<script type="importmap">
+		{
+		  "imports": {
+			"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+		  }
+		}
+	</script>
 </head>
 <body>
 	<h1>RSVP App</h1>
@@ -33,6 +38,8 @@
 
 	</div>
 <script type="module">
+	import { createApp } from 'vue'
+
 	const urlAPI = ''
 
 	const RootComponent = {
@@ -87,7 +94,7 @@
 		}
 	  },
 	}
-	const app = Vue.createApp(RootComponent)
+	const app = createApp(RootComponent)
 	const vm = app.mount('#app')
 </script>
 

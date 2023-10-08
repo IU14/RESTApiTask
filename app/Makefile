@@ -14,15 +14,15 @@ build:
 	docker build --tag ${DOCKER_IMAGE} .
 
 
-run_local: node_modules #vue.js  ## Run server locally (requires nodejs)
+run_local: node_modules #vue.esm-browser.js  ## Run server locally (requires nodejs)
 	node server.js
 node_modules:  # requires `choco install node` or `sudo apt-get install npm`
 	npm install
-vue.js:
-	curl https://unpkg.com/vue@next -L -o vue.js
+vue.esm-browser.js:  ## https://vuejs.org/guide/quick-start.html#using-vue-from-cdn
+	curl https://unpkg.com/vue@3/dist/vue.esm-browser.js -L -o vue.esm-browser.js
 
 clean:
 	rm -rf \
 		node_modules \
 		package-lock.json \
-		vue.js 
+		vue.esm-browser.js
