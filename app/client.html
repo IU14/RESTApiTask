@@ -15,7 +15,14 @@
 			<button > Add </button>
 			{{attendee.name}}{{attendee.notes}}
 		</form>
-
+		<ul>
+			<li v-for="attendee in attendees">
+				<span data-field="id">{{attendee.id}}</span>
+				<span data-field="name">{{attendee.name}}</span>
+				<span data-field="notes">{{attendee.notes}}</span>
+				<button data-action="delete" @click="deleteAttendee(attendee.id)">Remove</button>
+			</li>
+		</ul>
 	</div>
   
   <script type="module">
@@ -25,7 +32,14 @@
 	  data() { return { 
 		message: 'Hello Vue!',
 		attendee: { id:0, name: '',	notes: '',},
+		attendees: [1,2,3],
 	}},
+
+	created() {
+		this.clearForm()
+		this.getAttendees()
+	},
+	
 	methods: {
 		clearForm() {
 			console.log("Clearing the form")
@@ -44,8 +58,30 @@
 				.then(response => response.json())
 				.then(json => console.log('posed got stuff back', json))
 				.then(() => this.clearForm())
-				.catch(err => console.error(err));
-		}
+				.then(() => this.getAttendees())
+			.catch(err => console.error(err))
+		},
+		getAttendees() { 
+			fetch ('/attendees', {
+				method: 'GET',
+			})
+				.then(response =>response.json())
+				.then(json => {
+					console.log("GET WORKS", json)
+					this.list = json
+			})
+			.catch(err => console.error(err))
+		},
+
+		deleteAttendee(id) {
+    		fetch('/attendees/{id}`, {
+				method: 'DELETE',
+    		})
+        	.then(json => console.log('deleted', json))
+			.then(()=> this.getAttendees())
+		.catch(err => console.error(err));
+}
+
 	},
 
 	}).mount('#app')
